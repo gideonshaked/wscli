@@ -12,7 +12,6 @@ public class Driver {
 	private static ArrayList<int[]> intersectionCoords = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
-		intersectionCoords.add(new int[] { 0, 0 });
 		ArrayList<String> freeWords = new ArrayList<String>(
 				Arrays.asList("volkswagen", "toyota", "ford", "mercedes", "honda", "hyundai", "fiat", "ferrari",
 						"dodge", "audi", "bmw", "bugatti", "porsche", "mclaren", "jeep"));
@@ -35,10 +34,9 @@ public class Driver {
 		fillSpaces(grid);
 
 		return grid;
-	}
+	}// end method generateGrid
 
 	public static void placeVerticals(int howMany, char[][] grid, ArrayList<String> freeWords) {
-//		System.out.println(freeWords.size());
 		for (int placed = 1; placed <= howMany; placed++) {
 			String word = getWord(freeWords);
 			int row;
@@ -46,16 +44,19 @@ public class Driver {
 			boolean isInsertable = false;
 
 			outer: do {
+				// create random row and column
 				row = getRandom(0, grid.length - word.length());
 				col = getRandom(0, grid[0].length);
-
+				
+				// check if word can fit
 				for (int i = 0; i < word.length(); i++) {
 					if (!(grid[row + i][col] == 0 || grid[row + i][col] == word.charAt(i)))
 						continue outer;
 				}
 				isInsertable = true;
 			} while (!isInsertable);
-
+			
+			// insert word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row + i][col] == word.charAt(i)) {
 					intersections++;
@@ -76,16 +77,19 @@ public class Driver {
 			boolean isInsertable = false;
 
 			outer: do {
+				// create random row and column
 				row = getRandom(0, grid.length);
 				col = getRandom(0, grid[0].length - word.length());
-
+				
+				// check if word can fit
 				for (int i = 0; i < word.length(); i++) {
 					if (!(grid[row][col + i] == 0 || grid[row][col + i] == word.charAt(i)))
 						continue outer;
 				}
 				isInsertable = true;
 			} while (!isInsertable);
-
+			
+			// insert word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row][col + i] == word.charAt(i)) {
 					intersections++;
@@ -106,9 +110,11 @@ public class Driver {
 			boolean isInsertable = false;
 
 			outer: do {
+				// create random row and column
 				row = getRandom(0, grid.length);
 				col = getRandom(0, grid[0].length);
 
+				// check if the word can fit
 				for (int i = 0; i < word.length(); i++) {
 					try {
 						if (!(grid[row + i][col + i] == 0 || grid[row + i][col + i] == word.charAt(i)))
@@ -119,7 +125,8 @@ public class Driver {
 				}
 				isInsertable = true;
 			} while (!isInsertable);
-
+			
+			// insert the word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row + i][col + i] == word.charAt(i)) {
 					intersections++;
@@ -138,9 +145,11 @@ public class Driver {
 			boolean isInsertable = false;
 
 			outer: do {
+				// create random row and column
 				row = getRandom(0, grid.length);
 				col = getRandom(0, grid[0].length);
-
+				
+				// check if the word can fit
 				for (int i = 0; i < word.length(); i++) {
 					try {
 						if (!(grid[row + i][col - i] == 0 || grid[row + i][col - i] == word.charAt(i)))
@@ -151,7 +160,8 @@ public class Driver {
 				}
 				isInsertable = true;
 			} while (!isInsertable);
-
+			
+			// insert the word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row + i][col - i] == word.charAt(i)) {
 					intersections++;
@@ -178,7 +188,7 @@ public class Driver {
 					grid[i][j] = letters[getRandom(0, letters.length)];
 			}
 		}
-	}
+	}// end method fillSpaces
 
 	public static void printGrid(char[][] grid) {
 		for (char[] letters : grid) {
@@ -189,8 +199,6 @@ public class Driver {
 		}
 		System.out.println(usedWords.toString());
 	}// end method printGrid
-
-	// helper methods
 
 	public static int[] getOrientations() {
 		int[] orientations = new int[3];
