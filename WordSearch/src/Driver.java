@@ -1,12 +1,211 @@
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
- * @author Gideon
+ * @author Gideon Shaked
  *
  */
 public class Driver {
+	private static int intersections = 0;
+	private static ArrayList<String> usedWords = new ArrayList<String>();
+	private static ArrayList<int[]> intersectionCoords = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
-		
+		intersectionCoords.add(new int[] { 0, 0 });
+		ArrayList<String> freeWords = new ArrayList<String>(
+				Arrays.asList("volkswagen", "toyota", "ford", "mercedes", "honda", "hyundai", "fiat", "ferrari",
+						"dodge", "audi", "bmw", "bugatti", "porsche", "mclaren", "jeep"));
+		printGrid(generateGrid(freeWords, 20));
 	}
 
+	public static char[][] generateGrid(ArrayList<String> freeWords, int size) {
+		int[] orientations = getOrientations();
+		char[][] grid;
+
+		do {
+			grid = new char[size][size];
+			freeWords.addAll(usedWords);
+			usedWords.clear();
+			placeVerticals(orientations[0], grid, freeWords);
+			placeHorizontals(orientations[1], grid, freeWords);
+			placeDiagonals(orientations[2], grid, freeWords);
+		} while (intersections < 3);
+
+		fillSpaces(grid);
+
+		return grid;
+	}
+
+	public static void placeVerticals(int howMany, char[][] grid, ArrayList<String> freeWords) {
+//		System.out.println(freeWords.size());
+		for (int placed = 1; placed <= howMany; placed++) {
+			String word = getWord(freeWords);
+			int row;
+			int col;
+			boolean isInsertable = false;
+
+			outer: do {
+				row = getRandom(0, grid.length - word.length());
+				col = getRandom(0, grid[0].length);
+
+				for (int i = 0; i < word.length(); i++) {
+					if (!(grid[row + i][col] == 0 || grid[row + i][col] == word.charAt(i)))
+						continue outer;
+				}
+				isInsertable = true;
+			} while (!isInsertable);
+
+			for (int i = 0; i < word.length(); i++) {
+				if (grid[row + i][col] == word.charAt(i)) {
+					intersections++;
+					intersectionCoords.add(new int[] { row, col + i });
+					grid[row + i][col] = Character.toUpperCase(word.charAt(i));
+				} else {
+					grid[row + i][col] = word.charAt(i);
+				}
+			}
+		}
+	}// end method placeVerticals
+
+	public static void placeHorizontals(int howMany, char[][] grid, ArrayList<String> freeWords) {
+		for (int placed = 1; placed <= howMany; placed++) {
+			String word = getWord(freeWords);
+			int row;
+			int col;
+			boolean isInsertable = false;
+
+			outer: do {
+				row = getRandom(0, grid.length);
+				col = getRandom(0, grid[0].length - word.length());
+
+				for (int i = 0; i < word.length(); i++) {
+					if (!(grid[row][col + i] == 0 || grid[row][col + i] == word.charAt(i)))
+						continue outer;
+				}
+				isInsertable = true;
+			} while (!isInsertable);
+
+			for (int i = 0; i < word.length(); i++) {
+				if (grid[row][col + i] == word.charAt(i)) {
+					intersections++;
+					intersectionCoords.add(new int[] { row + i, col });
+					grid[row][col + i] = Character.toUpperCase(word.charAt(i));
+				} else {
+					grid[row][col + i] = word.charAt(i);
+				}
+			}
+		}
+	}// end method placeHorizontals
+
+	public static void placeDiagonals(int howMany, char[][] grid, ArrayList<String> freeWords) {
+		for (int placed = 1; placed <= howMany / 2; placed++) {
+			String word = getWord(freeWords);
+			int row;
+			int col;
+			boolean isInsertable = false;
+
+			outer: do {
+				row = getRandom(0, grid.length);
+				col = getRandom(0, grid[0].length);
+
+				for (int i = 0; i < word.length(); i++) {
+					try {
+						if (!(grid[row + i][col + i] == 0 || grid[row + i][col + i] == word.charAt(i)))
+							continue outer;
+					} catch (Exception e) {
+						continue outer;
+					}
+				}
+				isInsertable = true;
+			} while (!isInsertable);
+
+			for (int i = 0; i < word.length(); i++) {
+				if (grid[row + i][col + i] == word.charAt(i)) {
+					intersections++;
+					intersectionCoords.add(new int[] { row + i, col + i });
+					grid[row + i][col + i] = Character.toUpperCase(word.charAt(i));
+				} else {
+					grid[row + i][col + i] = word.charAt(i);
+				}
+			}
+		}
+
+		for (int placed = 1; placed <= howMany - howMany / 2; placed++) {
+			String word = getWord(freeWords);
+			int row;
+			int col;
+			boolean isInsertable = false;
+
+			outer: do {
+				row = getRandom(0, grid.length);
+				col = getRandom(0, grid[0].length);
+
+				for (int i = 0; i < word.length(); i++) {
+					try {
+						if (!(grid[row + i][col - i] == 0 || grid[row + i][col - i] == word.charAt(i)))
+							continue outer;
+					} catch (Exception e) {
+						continue outer;
+					}
+				}
+				isInsertable = true;
+			} while (!isInsertable);
+
+			for (int i = 0; i < word.length(); i++) {
+				if (grid[row + i][col - i] == word.charAt(i)) {
+					intersections++;
+					intersectionCoords.add(new int[] { row + i, col - i });
+					grid[row + i][col - i] = Character.toUpperCase(word.charAt(i));
+				} else {
+					grid[row + i][col - i] = word.charAt(i);
+				}
+			}
+		}
+	}// end method placeDiagonals
+
+	public static void fillSpaces(char[][] grid) {
+		// lower case intersections
+		for (int[] coords : intersectionCoords) {
+			grid[coords[0]][coords[1]] = Character.toLowerCase(grid[coords[0]][coords[1]]);
+		}
+		// fill blank spaces
+		char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o', 'p', 'q', 'r', 's',
+				't', 'u', 'v', 'w', 'x', 'y', 'z' };
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				if (grid[i][j] == 0)
+					grid[i][j] = letters[getRandom(0, letters.length)];
+			}
+		}
+	}
+
+	public static void printGrid(char[][] grid) {
+		for (char[] letters : grid) {
+			for (char letter : letters) {
+				System.out.print(letter + " ");
+			}
+			System.out.println();
+		}
+		System.out.println(usedWords.toString());
+	}// end method printGrid
+
+	// helper methods
+
+	public static int[] getOrientations() {
+		int[] orientations = new int[3];
+		orientations[0] = getRandom(0, 12);
+		orientations[1] = getRandom(0, 12 - orientations[0]);
+		orientations[2] = 12 - orientations[1] - orientations[0];
+		return orientations;
+	}// end method getOrientationNums
+
+	public static String getWord(ArrayList<String> freeWords) {
+		usedWords.add(freeWords.remove(getRandom(0, freeWords.size())));
+		return usedWords.get(usedWords.size() - 1);
+	}// end method getWord
+
+	public static int getRandom(int min, int max) {
+		return (int) (Math.random() * (max - min)) + min;
+	}// end method getRandomInRange
 }
