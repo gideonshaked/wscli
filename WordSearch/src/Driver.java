@@ -211,6 +211,7 @@ public class Driver {
 	public static ArrayList<String> getWordList() {
 		try {
 			String words = Files.readString(Path.of("src/words.txt"));
+			words = words.toLowerCase();
 			return new ArrayList<String>(Arrays.asList(words.split("\r\n")));
 		} catch (IOException e) {
 			System.out.println("There is no file named words.txt in src.");
