@@ -1,6 +1,9 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * @author Gideon Shaked
@@ -12,10 +15,7 @@ public class Driver {
 	private static ArrayList<int[]> intersectionCoords = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
-		ArrayList<String> freeWords = new ArrayList<String>(
-				Arrays.asList("volkswagen", "toyota", "ford", "mercedes", "honda", "hyundai", "fiat", "ferrari",
-						"dodge", "audi", "bmw", "bugatti", "porsche", "mclaren", "jeep"));
-		printGrid(generateGrid(freeWords, 20));
+		printGrid(generateGrid(getWordList(), 25));
 	}
 
 	public static char[][] generateGrid(ArrayList<String> freeWords, int size) {
@@ -31,7 +31,7 @@ public class Driver {
 			placeDiagonals(orientations[2], grid, freeWords);
 		} while (intersections < 3);
 
-		fillSpaces(grid);
+//		fillSpaces(grid);
 
 		return grid;
 	}// end method generateGrid
@@ -47,7 +47,7 @@ public class Driver {
 				// create random row and column
 				row = getRandom(0, grid.length - word.length());
 				col = getRandom(0, grid[0].length);
-				
+
 				// check if word can fit
 				for (int i = 0; i < word.length(); i++) {
 					if (!(grid[row + i][col] == 0 || grid[row + i][col] == word.charAt(i)))
@@ -55,7 +55,7 @@ public class Driver {
 				}
 				isInsertable = true;
 			} while (!isInsertable);
-			
+
 			// insert word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row + i][col] == word.charAt(i)) {
@@ -80,7 +80,7 @@ public class Driver {
 				// create random row and column
 				row = getRandom(0, grid.length);
 				col = getRandom(0, grid[0].length - word.length());
-				
+
 				// check if word can fit
 				for (int i = 0; i < word.length(); i++) {
 					if (!(grid[row][col + i] == 0 || grid[row][col + i] == word.charAt(i)))
@@ -88,7 +88,7 @@ public class Driver {
 				}
 				isInsertable = true;
 			} while (!isInsertable);
-			
+
 			// insert word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row][col + i] == word.charAt(i)) {
@@ -125,7 +125,7 @@ public class Driver {
 				}
 				isInsertable = true;
 			} while (!isInsertable);
-			
+
 			// insert the word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row + i][col + i] == word.charAt(i)) {
@@ -148,7 +148,7 @@ public class Driver {
 				// create random row and column
 				row = getRandom(0, grid.length);
 				col = getRandom(0, grid[0].length);
-				
+
 				// check if the word can fit
 				for (int i = 0; i < word.length(); i++) {
 					try {
@@ -160,7 +160,7 @@ public class Driver {
 				}
 				isInsertable = true;
 			} while (!isInsertable);
-			
+
 			// insert the word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row + i][col - i] == word.charAt(i)) {
@@ -207,6 +207,17 @@ public class Driver {
 		orientations[2] = 12 - orientations[1] - orientations[0];
 		return orientations;
 	}// end method getOrientationNums
+
+	public static ArrayList<String> getWordList() {
+		try {
+			String words = Files.readString(Path.of("src/words.txt"));
+			return new ArrayList<String>(Arrays.asList(words.split("\r\n")));
+		} catch (IOException e) {
+			System.out.println("There is no file named words.txt in src.");
+			e.printStackTrace();
+			return null;
+		}
+	}// end method getWordList
 
 	public static String getWord(ArrayList<String> freeWords) {
 		usedWords.add(freeWords.remove(getRandom(0, freeWords.size())));
