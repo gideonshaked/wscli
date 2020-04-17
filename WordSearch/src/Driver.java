@@ -15,7 +15,7 @@ public class Driver {
 	private static ArrayList<int[]> intersectionCoords = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
-		printGrid(generateGrid(getWordList(), 25));
+		printGrid(generateGrid(getWordList(), 20));
 	}
 
 	public static char[][] generateGrid(ArrayList<String> freeWords, int size) {
@@ -31,7 +31,7 @@ public class Driver {
 			placeDiagonals(orientations[2], grid, freeWords);
 		} while (intersections < 3);
 
-//		fillSpaces(grid);
+		fillSpaces(grid);
 
 		return grid;
 	}// end method generateGrid
