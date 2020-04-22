@@ -10,6 +10,7 @@ import java.nio.file.Path;
  *
  */
 public class Driver {
+	@SuppressWarnings("unused")
 	private static int intersections = 0;
 	private static ArrayList<String> usedWords = new ArrayList<String>();
 	private static ArrayList<int[]> intersectionCoords = new ArrayList<int[]>();
@@ -20,17 +21,12 @@ public class Driver {
 
 	public static char[][] generateGrid(ArrayList<String> freeWords, int size) {
 		int[] orientations = getOrientations();
-		char[][] grid;
-
-		do {
-			grid = new char[size][size];
-			freeWords.addAll(usedWords);
-			usedWords.clear();
-			placeVerticals(orientations[0], grid, freeWords);
-			placeHorizontals(orientations[1], grid, freeWords);
-			placeDiagonals(orientations[2], grid, freeWords);
-		} while (intersections < 3);
-
+		char[][] grid = new char[size][size];
+		
+		placeVerticals(orientations[0], grid, freeWords);
+		placeHorizontals(orientations[1], grid, freeWords);
+		placeDiagonals(orientations[2], grid, freeWords);
+	
 		fillSpaces(grid);
 
 		return grid;
