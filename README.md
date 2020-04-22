@@ -1,2 +1,2 @@
 # Word-Search
-A graphical word search puzzle, written in Java.
+A text-based search puzzle, written in Java.
