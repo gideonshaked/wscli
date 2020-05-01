@@ -10,8 +10,6 @@ import java.nio.file.Path;
  *
  */
 public class Driver {
-	@SuppressWarnings("unused")
-	private static int intersections = 0;
 	private static ArrayList<String> usedWords = new ArrayList<String>();
 	private static ArrayList<int[]> intersectionCoords = new ArrayList<int[]>();
 
@@ -26,7 +24,7 @@ public class Driver {
 		placeVerticals(orientations[0], grid, freeWords);
 		placeHorizontals(orientations[1], grid, freeWords);
 		placeDiagonals(orientations[2], grid, freeWords);
-	
+
 		fillSpaces(grid);
 
 		return grid;
@@ -43,6 +41,9 @@ public class Driver {
 				// create random row and column
 				row = getRandom(0, grid.length - word.length());
 				col = getRandom(0, grid[0].length);
+				System.out.println("word" + word.length());
+				System.out.println(row);
+				System.out.println(col);
 
 				// check if word can fit
 				for (int i = 0; i < word.length(); i++) {
@@ -55,7 +56,6 @@ public class Driver {
 			// insert word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row + i][col] == word.charAt(i)) {
-					intersections++;
 					intersectionCoords.add(new int[] { row, col + i });
 					grid[row + i][col] = Character.toUpperCase(word.charAt(i));
 				} else {
@@ -88,7 +88,6 @@ public class Driver {
 			// insert word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row][col + i] == word.charAt(i)) {
-					intersections++;
 					intersectionCoords.add(new int[] { row + i, col });
 					grid[row][col + i] = Character.toUpperCase(word.charAt(i));
 				} else {
@@ -125,7 +124,6 @@ public class Driver {
 			// insert the word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row + i][col + i] == word.charAt(i)) {
-					intersections++;
 					intersectionCoords.add(new int[] { row + i, col + i });
 					grid[row + i][col + i] = Character.toUpperCase(word.charAt(i));
 				} else {
@@ -160,7 +158,6 @@ public class Driver {
 			// insert the word
 			for (int i = 0; i < word.length(); i++) {
 				if (grid[row + i][col - i] == word.charAt(i)) {
-					intersections++;
 					intersectionCoords.add(new int[] { row + i, col - i });
 					grid[row + i][col - i] = Character.toUpperCase(word.charAt(i));
 				} else {
@@ -208,7 +205,7 @@ public class Driver {
 		try {
 			String words = Files.readString(Path.of("src/words.txt"));
 			words = words.toLowerCase();
-			return new ArrayList<String>(Arrays.asList(words.split("\r\n")));
+			return new ArrayList<String>(Arrays.asList(words.split("\n")));
 		} catch (IOException e) {
 			System.out.println("There is no file named words.txt in src.");
 			e.printStackTrace();
