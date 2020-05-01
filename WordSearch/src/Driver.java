@@ -41,9 +41,6 @@ public class Driver {
 				// create random row and column
 				row = getRandom(0, grid.length - word.length());
 				col = getRandom(0, grid[0].length);
-				System.out.println("word" + word.length());
-				System.out.println(row);
-				System.out.println(col);
 
 				// check if word can fit
 				for (int i = 0; i < word.length(); i++) {
@@ -186,7 +183,7 @@ public class Driver {
 	public static void printGrid(char[][] grid) {
 		for (char[] letters : grid) {
 			for (char letter : letters) {
-				System.out.print(letter + " ");
+				System.out.print(letter + "  ");
 			}
 			System.out.println();
 		}
