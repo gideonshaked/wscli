@@ -181,13 +181,18 @@ public class Driver {
 	}// end method fillSpaces
 
 	public static void printGrid(char[][] grid) {
+		String padding;
+		
 		for (char[] letters : grid) {
 			for (char letter : letters) {
 				System.out.print(letter + "  ");
 			}
 			System.out.println();
 		}
-		System.out.println(usedWords.toString());
+		
+		for (String word : usedWords) {
+			System.out.print(word);
+		}
 	}// end method printGrid
 
 	public static int[] getOrientations() {
