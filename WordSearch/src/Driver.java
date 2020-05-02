@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +19,7 @@ public class Driver {
 			System.out.println("Path used for words file is " + wordsPath + ".");
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("No arguments passed.");
-			wordsPath = "src/words.txt";
+			wordsPath = "words.txt";
 		}
 		
 		char[][] grid = new char[20][20];
@@ -204,7 +203,7 @@ public class Driver {
 		System.out.print("Words: ");
 		for (int i = 0; i < usedWords.size(); i++) {
 			if (i == usedWords.size() - 1)
-				System.out.print(usedWords.get(i));
+				System.out.println(usedWords.get(i));
 			else
 				System.out.print(usedWords.get(i) + ", ");
 		}
@@ -222,10 +221,18 @@ public class Driver {
 		try {
 			String words = Files.readString(Path.of(path));
 			words = words.toLowerCase();
-			return new ArrayList<String>(Arrays.asList(words.split("\n")));
+			ArrayList<String> wordList = new ArrayList<String>();
+			for (int i = 0, j = 0; i < words.length(); i++) {
+				if (words.charAt(i) == '\n'|| i == words.length() - 1) {
+					String word = words.substring(j, i);
+					if (word.length() <= 20)
+						wordList.add(word);
+					j = i + 1;
+				}
+			}
+			return wordList;
 		} catch (IOException e) {
-			System.out.println("There is no file named words.txt in src.");
-			e.printStackTrace();
+			System.out.println("There is no file named words.txt.");
 			return null;
 		}
 	}// end method getWordList
