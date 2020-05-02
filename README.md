@@ -4,7 +4,7 @@ This is meant to be a word search game that you can run directly from the Linux 
 
 ## Prerequisites
 
-To use the .jar file, you must have at least the JRE installed.
+To use the application, you must have at least either the JRE installed to run the .jar file.
 
 ## Usage
 
