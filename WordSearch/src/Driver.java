@@ -14,21 +14,18 @@ public class Driver {
 	private static ArrayList<int[]> intersectionCoords = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
-		printGrid(generateGrid(getWordList(), 20));
-	}
-
-	public static char[][] generateGrid(ArrayList<String> freeWords, int size) {
-		int[] orientations = getOrientations();
-		char[][] grid = new char[size][size];
+		char[][] grid = new char[20][20];
 		
+		int[] orientations = getOrientations();
+
+		ArrayList<String> freeWords = getWordList("src/words.txt");
 		placeVerticals(orientations[0], grid, freeWords);
 		placeHorizontals(orientations[1], grid, freeWords);
 		placeDiagonals(orientations[2], grid, freeWords);
 
 		fillSpaces(grid);
-
-		return grid;
-	}// end method generateGrid
+		printGrid(grid);
+	}// end method main
 
 	public static void placeVerticals(int howMany, char[][] grid, ArrayList<String> freeWords) {
 		for (int placed = 1; placed <= howMany; placed++) {
@@ -181,8 +178,12 @@ public class Driver {
 	}// end method fillSpaces
 
 	public static void printGrid(char[][] grid) {
-		String padding;
+		StringBuilder padding = new StringBuilder();
+		for (int i = 0; i < (grid.length - 1) * 2 + grid.length; i++) {
+			padding.append("-");
+		}
 		
+		System.out.println(padding);
 		for (char[] letters : grid) {
 			for (char letter : letters) {
 				System.out.print(letter + "  ");
@@ -190,8 +191,13 @@ public class Driver {
 			System.out.println();
 		}
 		
-		for (String word : usedWords) {
-			System.out.print(word);
+		System.out.println(padding);
+		System.out.print("Words: ");
+		for (int i = 0; i < usedWords.size(); i++) {
+			if (i == usedWords.size() - 1)
+				System.out.print(usedWords.get(i));
+			else
+				System.out.print(usedWords.get(i) + ", ");
 		}
 	}// end method printGrid
 
@@ -203,9 +209,9 @@ public class Driver {
 		return orientations;
 	}// end method getOrientationNums
 
-	public static ArrayList<String> getWordList() {
+	public static ArrayList<String> getWordList(String path) {
 		try {
-			String words = Files.readString(Path.of("src/words.txt"));
+			String words = Files.readString(Path.of(path));
 			words = words.toLowerCase();
 			return new ArrayList<String>(Arrays.asList(words.split("\n")));
 		} catch (IOException e) {
