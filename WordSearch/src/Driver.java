@@ -14,11 +14,20 @@ public class Driver {
 	private static ArrayList<int[]> intersectionCoords = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
+		String wordsPath;
+		try {
+			wordsPath = args[0];
+			System.out.println("Path used for words file is " + wordsPath + ".");
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("No arguments passed.");
+			wordsPath = "src/words.txt";
+		}
+		
 		char[][] grid = new char[20][20];
 		
 		int[] orientations = getOrientations();
 
-		ArrayList<String> freeWords = getWordList("src/words.txt");
+		ArrayList<String> freeWords = getWordList(wordsPath);
 		placeVerticals(orientations[0], grid, freeWords);
 		placeHorizontals(orientations[1], grid, freeWords);
 		placeDiagonals(orientations[2], grid, freeWords);
