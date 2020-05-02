@@ -15,4 +15,4 @@ Or, if you have a file named words.txt in the working directory:
 
 ## Running the program from anywhere on the system
 
-If you want to run the program from anywhere on your system, download the file named word-search from either the repository or the latest release.
+If you want to run the program from anywhere on your system, download the file named word-search from either the repository or the latest release. Then, follow the instructions in word-search.
