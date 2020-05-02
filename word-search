@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Bash script to make ws.jar executable from anywhere. Just make this script executable, add the path to the jar,
+# and place its directory on your PATH.
+
+java -jar /<path>/<to>/ws.jar $1
