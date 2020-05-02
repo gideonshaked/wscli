@@ -13,13 +13,13 @@ public class Driver {
 	private static ArrayList<int[]> intersectionCoords = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
-		String wordsPath;
+		String wordsPath = null;
 		try {
 			wordsPath = args[0];
 			System.out.println("Path used for words file is " + wordsPath + ".");
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("No arguments passed.");
-			wordsPath = "words.txt";
+			System.out.println("No arguments passed. Please pass a path to a words file.");
+			System.exit(1);
 		}
 		
 		char[][] grid = new char[20][20];
@@ -232,7 +232,7 @@ public class Driver {
 			}
 			return wordList;
 		} catch (IOException e) {
-			System.out.println("There is no file named words.txt.");
+			System.out.println("This filepath is invalid.");
 			return null;
 		}
 	}// end method getWordList
