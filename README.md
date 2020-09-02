@@ -13,4 +13,4 @@ To run this program, download the runnable .jar file from the latest release, an
 
 ## Running the program from anywhere on the system
 
-If you want to run the program from anywhere on your system, download the bash wrapper word-search from either the repository or the latest release. Then, follow the instructions in word-search.
+If you want to run the program from anywhere on your system, download the bash wrapper word-search from either the repository page or the release page. Then, follow the instructions in word-search.
