@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Bash script to make ws.jar executable from anywhere. Just make this script executable, add the path to the jar, add the path to the default words file, and place the directory with the jar on your PATH.
-
-if [ $# -eq 0 ]; then
-    java -jar ~/git/Word-Search-Terminal/ws.jar ~/git/Word-Search-Terminal/words/cars_words.txt
-else
-    java -jar ~/git/Word-Search-Terminal/ws.jar $1
-fi
