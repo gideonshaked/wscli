@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.io.File;
 import java.nio.file.Path;
 
-public class Wscli {
+public class wscli {
 	private static ArrayList<String> usedWords = new ArrayList<String>();
 	private static ArrayList<int[]> intersectionCoords = new ArrayList<int[]>();
 
@@ -242,7 +242,7 @@ public class Wscli {
 			System.exit(0);
 		} else if (args.length == 2) {
 			if (args[0].equals("-w") || args[0].equals("--words")) {
-				String filePath = Wscli.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+				String filePath = wscli.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 				return filePath.substring(0, filePath.length() - 14) + "words/" + args[1] + "_words.txt";
 			}
 			if (args[0].equals("-f") || args[1].equals("--file")) {
