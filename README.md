@@ -11,7 +11,7 @@ Wscli is a program to display word searches in the CLI. It can use several preex
 Run the install script.
 
 ```shell
-curl https://github.com/The-Kid-Gid/wscli/blob/master/install.sh | bash
+curl https://raw.githubusercontent.com/The-Kid-Gid/wscli/master/install.sh | bash
 ```
 
 This will install wscli to `~/.local/bin`. It will also add a bash alias so that you can just use the command `wscli` install of `java <path to wscli.java>`.
