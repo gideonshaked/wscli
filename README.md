@@ -2,23 +2,24 @@
 
 Wscli is a program to display word searches in the CLI. It can use several preexisting word lists, or you can provide your own. Enjoy!
 
-## Prerequisites
+## Requirements
 
-This program needs [Java](https://www.java.com/en/download/) to run.
+- [Java](https://www.java.com/en/download/)
 
 ## Installation
 
-1. `git clone https://github.com/The-Kid-Gid/wscli`
+Run the install script.
 
-2. `cd wscli/src`
+```shell
+curl https://github.com/The-Kid-Gid/wscli/blob/master/install.sh | bash
+```
 
-3. `java wscli.java [options] (arguments)`
-
-For easier usage, add something like `alias wscli="java <path to wscli.java>"` to your `.bashrc`.
+This will install wscli to `~/.local/bin`. It will also add a bash alias so that you can just use the command `wscli` install of `java <path to wscli.java>`.
 
 ## Usage
 
 ```
+❯ wscli --help
 usage: wscli [-h] (-w <default words list> | -f <path to valid words file>)
 
 Display a word search to the terminal.
@@ -32,8 +33,8 @@ arguments:
 
 ## Examples
 
-```
-$ java wscli.java -w animals
+```shell
+❯ wscli -w animals
 ----------------------------------------------------------
 f  c  p  k  m  u  w  d  b  a  l  d     e  a  g  l  e  t  z  
 r  h  v  d  z  a  s  p  m  u  t  a  r  a  n  t  u  l  a  y  
@@ -57,7 +58,10 @@ l  x  q  q  u  s  g  h  g  z  l  a  n  d  f  o  w  l  i  p
 f  r  b  h  g  j  z  k  y  o  e  r  k  s  c  u  j  l  i  w  
 ----------------------------------------------------------
 Words: newt, kite, gila monster, asp, bald eagle, tarantula, polar bear, bobolink, landfowl, toucan, orca, arctic fox
-$ java wscli.java -w cars
+```
+
+```shell
+❯ wscli -w cars
 ----------------------------------------------------------
 h  r  f  d  b  h  r  m  p  j  w  b  k  t  e  e  z  f  d  o  
 a  o  w  a  r  k  g  p  d  s  y  k  m  e  d  t  d  r  r  b  
