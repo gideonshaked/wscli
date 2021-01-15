@@ -8,8 +8,8 @@ main() {
 
     git clone https://github.com/The-Kid-Gid/wscli "$HOME/.local/bin/wscli" > /dev/null
 
-    add_to_bashrc "# !!! This block added by wscli install script !!!"
-    add_to_bashrc 'alias wscli="java $HOME/.local/bin/wscli/src/wscli.java'
+    add_to_bashrc "# !!! This block added by the wscli install script !!!"
+    add_to_bashrc "alias wscli='java $HOME/.local/bin/wscli/src/wscli.java'"
     add_to_bashrc "# !!! End block !!!"    
 }
 
