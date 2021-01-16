@@ -2,6 +2,8 @@
 
 Wscli is a program to display word searches in the CLI. It can use several preexisting word lists, or you can provide your own. Enjoy!
 
+![Wscli Example](https://github.com/The-Kid-Gid/wscli/blob/master/img/example.svg)
+
 ## Requirements
 
 - [Java](https://www.java.com/en/download/)
