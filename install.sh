@@ -6,7 +6,7 @@
 main() {
     check_java
 
-    git clone https://github.com/The-Kid-Gid/wscli "$HOME/.local/bin/wscli" > /dev/null
+    git clone https://github.com/not-stirred/wscli "$HOME/.local/bin/wscli" > /dev/null
 
     add_to_bashrc "# !!! This block added by the wscli install script !!!"
     add_to_bashrc "alias wscli='java $HOME/.local/bin/wscli/src/wscli.java'"
